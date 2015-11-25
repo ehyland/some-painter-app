@@ -16,7 +16,10 @@ class HTML extends Component {
           <meta charSet="UTF-8"/>
           <title>Document</title>
         </head>
-        <body dangerouslySetInnerHTML={{__html: this.props.content}} />
+        <body>
+          <div id="app" dangerouslySetInnerHTML={{__html: this.props.content}}/>
+          <script dangerouslySetInnerHTML={{__html: this.props.state}}/>
+        </body>
       </html>
     );
   }

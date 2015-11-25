@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import csurf from "csurf";
 import render from "./render";
 import app from "./app";
+import CMSService from "./services/CMSService";
 const debug = require("debug")("painter:server");
 
 const env = process.env.NODE_ENV || "development";
@@ -21,6 +22,13 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compression());
 server.use(csurf({ cookie: true }));
+
+// Configure fetchr
+const fetchr = app.getPlugin("FetchrPlugin");
+fetchr.registerService(CMSService);
+server.use(fetchr.getXhrPath(), fetchr.getMiddleware());
+
+// Render pages
 server.use(render);
 
 server.listen(port, function () {

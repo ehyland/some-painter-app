@@ -10,9 +10,6 @@ import LoadingPage from "./LoadingPage";
 
 @provideContext
 @handleHistory
-// @connectToStores(["HtmlHeadStore"], context =>
-//   ({ documentTitle: context.getStore("HtmlHeadStore").getTitle() })
-// )
 class Root extends Component {
   static propTypes = {
     // props coming from fluxible-router's handleHistory

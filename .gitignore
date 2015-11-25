@@ -5,3 +5,7 @@
 
 # Modules
 node_modules
+
+# Private
+src/configs/keys.js
+src/configs/dev.conf.js
