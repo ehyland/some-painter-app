@@ -1,0 +1,7 @@
+# Misc
+/*.log
+/*.zip
+/*.tar.gz
+
+# Modules
+node_modules

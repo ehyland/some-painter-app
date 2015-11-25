@@ -1,0 +1,32 @@
+{
+  "name": "some-painter-app",
+  "version": "1.0.0",
+  "description": "somepainter.com",
+  "main": "index.js",
+  "scripts": {
+    "dev": "DEBUG=painter:* NODE_ENV=development node index"
+  },
+  "author": "Eamon Hyland",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.0",
+    "csurf": "^1.8.3",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
+    "fluxible": "^1.0.3",
+    "fluxible-addons-react": "^0.2.0",
+    "fluxible-router": "^0.4.0",
+    "immutable": "^3.7.5",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "serialize-javascript": "^1.1.2"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.32",
+    "babel-eslint": "^4.1.6",
+    "eslint": "^1.10.1",
+    "eslint-plugin-react": "^3.10.0"
+  }
+}
