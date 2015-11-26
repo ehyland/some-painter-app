@@ -3,8 +3,9 @@ import React from "react";
 import ReactDom from "react-dom";
 import app from "./app";
 
-window.debug = require("debug");
-const debug = window.debug("painter:client");
+window.debugLib = require("debug");
+window.debugLib.enable("painter:*");
+const debug = window.debugLib("painter:client");
 
 const mountNode = document.getElementById("app");
 const dehydratedState = window.__INITIAL_STATE__;
