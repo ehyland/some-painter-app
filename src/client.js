@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from "react";
+import ReactDom from "react-dom";
 import app from "./app";
 
 window.debug = require("debug");
@@ -7,6 +8,8 @@ const debug = window.debug("painter:client");
 
 const mountNode = document.getElementById("app");
 const dehydratedState = window.__INITIAL_STATE__;
+
+renderApp();
 
 function renderApp() {
   debug("Rehydrating state...", dehydratedState);
@@ -20,7 +23,7 @@ function renderApp() {
 
     const Root = app.getComponent();
 
-    React.render(<Root context={ context.getComponentContext() } />, mountNode, () => {
+    ReactDom.render(<Root context={ context.getComponentContext() } />, mountNode, () => {
       debug("Root component has been mounted");
     });
   });
