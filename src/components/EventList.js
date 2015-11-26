@@ -12,7 +12,9 @@ class EventList extends Component {
           <div className="Date">Thu 26</div>
         </div>
 
-        {events.map(event => <ListEvent event={event} gallery={galleries.find(gallery => gallery.ID === event.GalleryID)}/>)}
+        {events.map(event =>
+          <ListEvent key={event.ID} event={event} gallery={galleries.find(gallery => gallery.ID === event.GalleryID)}/>
+        )}
 
       </section>
     );
