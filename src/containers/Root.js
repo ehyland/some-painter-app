@@ -8,6 +8,10 @@ import NotFoundPage from "./NotFoundPage";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
 
+if (process.env.BROWSER) {
+  require("../styles/main.scss");
+}
+
 @provideContext
 @handleHistory
 class Root extends Component {
