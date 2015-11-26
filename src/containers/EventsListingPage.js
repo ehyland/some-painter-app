@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from "react";
 import { connectToStores } from "fluxible-addons-react";
 
+import EventList from "../components/EventList";
+
 @connectToStores(["EventStore", "GalleryStore"], context =>
   ({
     events: context.getStore("EventStore").getEvents(),
@@ -11,16 +13,18 @@ class EventsListingPage extends Component {
   static propTypes = {}
   render() {
     return (
-      <div className="EventsListingPage">
-        <h1>Events</h1>
-        <ul>
-          {this.props.events.map((event) => <li key={event.ID}>{`${event.ID}::${event.Title}`}</li> )}
-        </ul>
-        <h1>Galleries</h1>
-        <ul>
-          {this.props.galleries.map((gallery) => <li key={gallery.ID}>{`${gallery.ID}::${gallery.Title}`}</li> )}
-        </ul>
-      </div>
+      <main>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-5 col-md-3">
+              <h1 className="Page-title">Art Gallery Openings In Melbourne</h1>
+            </div>
+            <div className="col-md-offset-1 col-md-8 col-sm-offset-1 col-sm-6">
+              <EventList {...this.props}/>
+            </div>
+          </div>
+        </div>
+      </main>
     );
   }
 }

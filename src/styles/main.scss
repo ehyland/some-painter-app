@@ -1,0 +1,84 @@
+@import "includes/bootstrap-4.0.0-alpha/scss/bootstrap-reboot";
+@import "includes/bootstrap-4.0.0-alpha/scss/bootstrap-grid";
+@import './fonts/Montserrat/font-face.scss';
+
+$logo-colour: #B2AEAD;
+$base-text-colour: #000;
+$footer-heigth: 150px;
+
+html,body{
+  height: 100%;
+}
+body{
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: $base-text-colour;
+}
+
+.App{
+  position: relative;
+  padding-bottom: $footer-heigth;
+  min-height: 100%;
+}
+
+.Header{
+  margin-bottom: 0px;
+  @media (min-width: 768px) {
+    margin-bottom: 30px;
+  }
+}
+.Header-siteLogo{
+  margin-top: 50px;
+  font-size: 18px;
+  color: $logo-colour;
+}
+
+.Page-title{
+  font-weight: normal;
+}
+
+.EventList{}
+.EventList-header{
+  color: $base-text-colour;
+  margin-bottom: 30px;
+  h2{
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+}
+
+.ListEvent{
+  margin-bottom: 40px;
+}
+.ListEvent-title{
+  margin-bottom: 8px;
+}
+.ListEvent-galleryName{
+  font-size: 16px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+.ListEvent-suburb{
+  font-size: 14px;
+}
+.ListEvent-summary{
+  font-style: italic;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.ListEvent-artist{}
+.ListEvent-location{}
+.ListEvent-time{}
+
+.Footer{
+  position: absolute;
+  bottom:0;
+  left:0;
+  height: $footer-heigth;
+  width:100%;
+}
+.Footer-copyright{
+  margin-top: $footer-heigth/2 - 20px;
+  font-size: 10px;
+}

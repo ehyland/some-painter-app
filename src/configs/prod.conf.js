@@ -1,5 +1,5 @@
 export default {
   cms: {
-    baseURL: "http://cms.eamon.io/"
+    baseURL: "http://128.199.84.238:8888/"
   }
 };

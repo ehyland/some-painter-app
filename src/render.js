@@ -6,6 +6,24 @@ import {navigateAction} from "fluxible-router";
 import HTML from "./containers/HTML";
 import app from "./app";
 
+// Get assets to inject
+let css, scripts, buildConfig, stats;
+if(process.env.NODE_ENV === "development") {
+  buildConfig = require("../webpack/dev.config");
+  scripts = ["bundle.js"];
+  css = [];
+}
+else {
+  stats = require("../static/build/stats.json");
+  buildConfig = require("../webpack/prod.config");
+  scripts = stats.main.js;
+  css = stats.main.css;
+}
+
+// Prefix with public path
+css = css.map(fileName => buildConfig.output.publicPath + fileName);
+scripts = scripts.map(fileName => buildConfig.output.publicPath + fileName);
+
 function renderResponse(req, res, context, next) {
   try {
     const state = "window.__INITIAL_STATE__=" + serialize(app.dehydrate(context)) + ";";
@@ -22,6 +40,8 @@ function renderResponse(req, res, context, next) {
         context={ context.getComponentContext() }
         state={ state }
         content={ content }
+        css={ css }
+        scripts={ scripts }
       />
     );
     const doctype = "<!DOCTYPE html>";
