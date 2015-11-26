@@ -5,5 +5,7 @@ export default keymirror({
   // LOAD_EVENTS
   "LOAD_EVENTS_START": null,
   "LOAD_EVENTS_SUCCESS": null,
-  "LOAD_EVENTS_FAILED": null
+  "LOAD_EVENTS_FAILED": null,
+
+  "UPDATE_SEARCH_DAY": null
 });
