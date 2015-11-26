@@ -13,6 +13,7 @@ export default {
         debug("Error getting events", err);
       }else {
         context.dispatch(Actions.LOAD_EVENTS_SUCCESS, res.body.collections);
+        context.dispatch(Actions.UPDATE_SEARCH_DAY, res.body.melbSearchDate);
       }
       done();
     });
