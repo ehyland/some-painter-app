@@ -17,7 +17,10 @@ class HTML extends Component {
     return(
       <html lang="en">
         <head>
-          <meta charSet="UTF-8"/>
+          <meta charSet="utf-8"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <meta httpEquiv="x-ua-compatible" content="ie=edge"/>
+
           <title>Document</title>
           {css.map((href, index) => <link key={index} rel="stylesheet" href={href}/>)}
         </head>
