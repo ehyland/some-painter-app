@@ -18,7 +18,7 @@ export default {
           debug(`Error making request to ${url}`, err);
           done(err);
         }else {
-          done(err, res);
+          done(err, {status: res.status, body: res.body});
         }
       });
   }

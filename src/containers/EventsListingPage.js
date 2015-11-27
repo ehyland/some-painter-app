@@ -5,7 +5,6 @@ import EventList from "../components/EventList";
 
 @connectToStores(["EventStore", "GalleryStore"], context =>
   ({
-    searchDayString: context.getStore("EventStore").getSearchDayString(),
     events: context.getStore("EventStore").getEvents(),
     galleries: context.getStore("GalleryStore").getGalleries()
   })

@@ -6,8 +6,7 @@ class EventStore extends BaseStore {
   static storeName = "EventStore";
 
   static handlers = {
-    [Actions.LOAD_EVENTS_SUCCESS]: "handleReceiveEvents",
-    [Actions.UPDATE_SEARCH_DAY]: "handleUpdateSearchDay"
+    [Actions.LOAD_EVENTS_SUCCESS]: "handleReceiveEvents"
   }
 
   constructor (dispatcher) {
@@ -16,13 +15,10 @@ class EventStore extends BaseStore {
     this.searchDayString = "Loading..."
   }
 
-  handleReceiveEvents ({events=[]}) {
-    this.events = events;
-    this.emitChange();
-  }
-
-  handleUpdateSearchDay (searchDayString) {
-    this.searchDayString = searchDayString;
+  handleReceiveEvents ({searchDate, events=[]}) {
+    this.events = this.events
+      .filter(event => event.Date !== searchDate) // Remove all for search date
+      .concat(events); // Add new events
     this.emitChange();
   }
 
@@ -41,15 +37,13 @@ class EventStore extends BaseStore {
   // For sending state to the client
   dehydrate () {
     return {
-      events: this.events,
-      searchDayString: this.searchDayString
+      events: this.events
     };
   }
 
   // For rehydrating server state
   rehydrate (state) {
     this.events = state.events;
-    this.searchDayString = state.searchDayString;
   }
 }
 

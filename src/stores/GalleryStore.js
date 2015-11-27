@@ -15,7 +15,14 @@ class GalleryStore extends BaseStore {
   }
 
   handleReceiveGalleries ({galleries=[]}) {
-    this.galleries = galleries;
+    galleries.forEach(gallery => {
+      const index = this.galleries.findIndex(testGal => testGal.ID === gallery.ID);
+      if (index === -1) {
+        this.galleries.push(gallery);
+      }else {
+        this.galleries.splice(index, 1, gallery);
+      }
+    });
     this.emitChange();
   }
 

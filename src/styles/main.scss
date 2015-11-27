@@ -29,9 +29,15 @@ body{
   }
 }
 .Header-siteLogo{
+  display: block;
   margin-top: 50px;
   font-size: 18px;
   color: $logo-colour;
+
+  &:hover,&:active,&:focus{
+    color: lighten($logo-colour, 20%);
+    text-decoration: none;
+  }
 }
 
 .Page-title{
@@ -40,14 +46,21 @@ body{
   font-weight: normal;
 }
 
-.EventList{}
-.EventList-header{
+.EventListFilter{
   color: $base-text-colour;
   margin-bottom: 30px;
-  h2{
-    font-size: 24px;
-    margin-bottom: 0;
-  }
+}
+.EventListFilter-btn{
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+.EventListFilterBtn-label{
+  font-size: 24px;
+  margin-bottom: 0;
+}
+.EventListFilterBtn-date{
+
 }
 
 .ListEvent{

@@ -4,16 +4,22 @@ const debug = require("debug")("painter:actions");
 export default {
 
   // Events Listing Page
-  eventsListingPage: function(context, payload, done) {
+  eventsListingPage: function(context, { params }, done) {
     context.dispatch(Actions.LOAD_EVENTS_START, {});
+    const date = params.date || "";
 
-    context.service.read("cms", {endPoint: "events/"}, (err, res) => {
+    context.service.read("cms", {endPoint: `events/${date}`}, (err, res) => {
       if (err) {
         context.dispatch(Actions.LOAD_EVENTS_FAILED, {});
         debug("Error getting events", err);
       }else {
-        context.dispatch(Actions.LOAD_EVENTS_SUCCESS, res.body.collections);
-        context.dispatch(Actions.UPDATE_SEARCH_DAY, res.body.melbSearchDate);
+        const {galleries, events} = res.body.collections;
+
+        context.dispatch(Actions.LOAD_EVENTS_SUCCESS, {
+          searchDate: res.body.searchDate,
+          galleries: galleries,
+          events: events
+        });
       }
       done();
     });
