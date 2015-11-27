@@ -3,6 +3,7 @@
 import path from "path";
 import express from "express";
 import serveStatic from "serve-static";
+import serveFavicon from "serve-favicon";
 import compression from "compression";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
@@ -28,6 +29,9 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 server.use(compression());
 server.use(csurf({ cookie: true }));
+
+// Favicon
+server.use(serveFavicon(`${staticPath}/favicon.ico`));
 
 // Configure fetchr
 const fetchr = app.getPlugin("FetchrPlugin");
