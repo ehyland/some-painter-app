@@ -52,10 +52,14 @@ body{
   line-height: 1.15;
   font-weight: normal;
 }
+.EventList{
+  position: relative;
+  padding-top: 10px;
+}
 
 .EventListFilter{
   color: $base-text-colour;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .EventListFilterBtn{
   position: relative;

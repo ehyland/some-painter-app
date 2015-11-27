@@ -1,40 +1,42 @@
 import React, {PropTypes, Component} from "react";
-import EventListFilter from "./EventListFilter";
+import classNames from "classnames";
 import ListEvent from "./ListEvent";
 
 class EventList extends Component {
 
-  renderEvents () {
-    const {events, isNavigateComplete} = this.props;
-
-    if (events.length) {
-      return events.map(event => (
-        <ListEvent {...this.props} key={event.ID} event={event} />
-      ));
-    }else if (isNavigateComplete) {
-      return <p>No events...</p>;
-    }
-  }
-
   renderStatusMessage () {
-    const {eventsLoadingStatus} = this.props;
-    if (eventsLoadingStatus === "LOADED") {
-      return null;
+    const {eventsLoadingStatus, events, isNavigateComplete} = this.props;
+    let message;
+
+    if (events.length && eventsLoadingStatus !== "ERROR") {
+      // Dont't display loading message if there are some events listed
+      // Will update this when a better loading indicator has been designed
+      return;
     }
-    else if (eventsLoadingStatus === "LOADING") {
-      return <p>Loading...</p>;
+    if (isNavigateComplete && eventsLoadingStatus === "ERROR") {
+      return <p>Error loading event</p>
     }
-    else {
-      return <p>Error loading events...</p>;
+    else if (isNavigateComplete && !events.length) {
+      return <p>No events</p>
+    }
+    else if (!isNavigateComplete || eventsLoadingStatus === "LOADING") {
+      return <p>Loading events</p>
     }
   }
 
   render () {
+    const {events} = this.props;
+
+    const statusMessage = this.renderStatusMessage();
+
     return (
       <section className="EventList">
-        <EventListFilter {...this.props}/>
-        {this.renderStatusMessage()}
-        {this.renderEvents()}
+        <div className={classNames({"EventList-statusMesage": true, "active": statusMessage})}>
+          {statusMessage}
+        </div>
+        {events.map(event => (
+          <ListEvent {...this.props} key={event.ID} event={event} />
+        ))}
       </section>
     );
   }

@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from "react";
 import moment from "moment-timezone";
 import { connectToStores } from "fluxible-addons-react";
 
+import EventListFilter from "../components/EventListFilter";
 import EventList from "../components/EventList";
 
 @connectToStores(["EventStore", "GalleryStore", "LocationStore"], context => {
@@ -26,6 +27,7 @@ class EventsListingPage extends Component {
               <h1 className="Page-title">Art Gallery Openings In Melbourne</h1>
             </div>
             <div className="col-md-offset-0 col-md-7 col-lg-8 col-sm-offset-1 col-sm-6">
+              <EventListFilter {...this.props}/>
               <EventList {...this.props}/>
             </div>
           </div>
