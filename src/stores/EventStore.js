@@ -1,4 +1,5 @@
 import BaseStore from "fluxible/addons/BaseStore";
+import Immutable from "immutable";
 import Actions from "../constants/Actions";
 
 class EventStore extends BaseStore {
@@ -11,39 +12,42 @@ class EventStore extends BaseStore {
 
   constructor (dispatcher) {
     super(dispatcher);
-    this.events = [];
-    this.searchDayString = "Loading..."
+    this.events = Immutable.List([]);
   }
 
+  /**
+   * Dispatch handlers
+   */
   handleReceiveEvents ({searchDate, events=[]}) {
     this.events = this.events
       .filter(event => event.Date !== searchDate) // Remove all for search date
-      .concat(events); // Add new events
+      .concat(events)
+      .sortBy(event => event.StartDate); // Add new events
     this.emitChange();
   }
 
-  getSearchDayString () {
-    return this.searchDayString;
-  }
-
+  /**
+   * Getters
+   */
   getEvents () {
-    return this.events;
+    return this.events.toJS();
   }
 
   getEventByID (id) {
     return this.events.find(event => event.ID === id);
   }
 
-  // For sending state to the client
+  /**
+   * Transferring state
+   */
   dehydrate () {
     return {
-      events: this.events
+      events: this.events.toJS()
     };
   }
 
-  // For rehydrating server state
   rehydrate (state) {
-    this.events = state.events;
+    this.events = Immutable.List(state.events);
   }
 }
 

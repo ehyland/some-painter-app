@@ -2,9 +2,7 @@ import Actions from "../constants/Actions";
 const debug = require("debug")("painter:actions");
 
 export default {
-
-  // Events Listing Page
-  eventsListingPage: function(context, { params }, done) {
+  loadEventDataForDay (context, { params }, done) {
     context.dispatch(Actions.LOAD_EVENTS_START, {});
     const date = params.date || "";
 
@@ -13,13 +11,11 @@ export default {
         context.dispatch(Actions.LOAD_EVENTS_FAILED, {});
         debug("Error getting events", err);
       }else {
-        const {galleries, events} = res.body.collections;
 
-        context.dispatch(Actions.LOAD_EVENTS_SUCCESS, {
-          searchDate: res.body.searchDate,
-          galleries: galleries,
-          events: events
-        });
+        // Inject searchDate
+        res.body.collections.searchDate = res.body.searchDate;
+
+        context.dispatch(Actions.LOAD_EVENTS_SUCCESS, res.body.collections);
       }
       done();
     });

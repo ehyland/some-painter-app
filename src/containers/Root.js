@@ -13,7 +13,7 @@ if (process.env.BROWSER) {
 }
 
 @provideContext
-@handleHistory
+@handleHistory({enableScroll: false})
 class Root extends Component {
   static propTypes = {
     // props coming from fluxible-router's handleHistory
@@ -41,8 +41,7 @@ class Root extends Component {
     //   content = <LoadingPage />;
     // }
     else {
-      const params = currentRoute.params;
-      content = <Handler {...params} />;
+      content = <Handler {...this.props} />;
     }
 
     return (

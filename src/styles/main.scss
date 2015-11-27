@@ -6,6 +6,13 @@ $logo-colour: #B2AEAD;
 $base-text-colour: #000;
 $footer-heigth: 150px;
 
+a{
+  &, &:hover, &:active, &:focus{
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
 html,body{
   height: 100%;
 }
@@ -50,17 +57,42 @@ body{
   color: $base-text-colour;
   margin-bottom: 30px;
 }
-.EventListFilter-btn{
+.EventListFilterBtn{
   position: relative;
   display: inline-block;
   margin-right: 20px;
-}
-.EventListFilterBtn-label{
-  font-size: 24px;
-  margin-bottom: 0;
-}
-.EventListFilterBtn-date{
+  color: lighten($base-text-colour, 80%);
 
+  @include media-breakpoint-down(md) {
+    display: block;
+  }
+
+  &.active{
+    color: $base-text-colour;
+    margin-bottom: 30px;
+  }
+
+  &:hover, &:active, &:focus{
+    text-decoration: none;
+  }
+
+  &-label{
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  &.active &-label{
+    font-size: 24px;
+  }
+
+  &-date{
+    position: absolute;
+    top: 100%;
+    opacity: 0;
+  }
+  &.active &-date{
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+  }
 }
 
 .ListEvent{

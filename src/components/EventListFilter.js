@@ -6,12 +6,14 @@ import classNames from "classnames";
 class EventListFilter extends Component {
   render() {
     const date = moment.tz("Australia/Melbourne");
+    const {currentRoute} = this.props;
+
     return (
       <div className="EventListFilter">
-        <EventListFilterBtn label="Tonight" momentCurrentDate={date} momentDate={date}/>
-        <EventListFilterBtn label="Tomorrow" momentCurrentDate={date} momentDate={date.clone().add(1, "days")}/>
-        <EventListFilterBtn label="Next Day" momentCurrentDate={date} momentDate={date.clone().add(2, "days")}/>
-        <EventListFilterBtn label="Day After" momentCurrentDate={date} momentDate={date.clone().add(3, "days")}/>
+        <EventListFilterBtn label="Tonight" momentDate={date} forceActive={currentRoute.name === "home"}/>
+        <EventListFilterBtn label="Tomorrow" momentDate={date.clone().add(1, "days")}/>
+        <EventListFilterBtn label="Next Day" momentDate={date.clone().add(2, "days")}/>
+        <EventListFilterBtn label="Day After" momentDate={date.clone().add(3, "days")}/>
       </div>
     );
   }
@@ -20,18 +22,17 @@ class EventListFilter extends Component {
 class EventListFilterBtn extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
-    momentDate: PropTypes.object.isRequired,
-    momentCurrentDate: PropTypes.object.isRequired
+    momentDate: PropTypes.object.isRequired
   }
 
   render() {
-    const {label, momentDate, momentCurrentDate} = this.props;
+    const {label, momentDate, forceActive} = this.props;
     const navParams = {
       date: momentDate.format("YYYY-MM-DD")
     };
     const className = classNames({
-      "EventListFilter-btn": true,
-      "active": momentDate === momentCurrentDate
+      "EventListFilterBtn": true,
+      "active": forceActive
     });
 
     return (
