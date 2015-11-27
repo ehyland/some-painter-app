@@ -1,4 +1,5 @@
 import BaseStore from "fluxible/addons/BaseStore";
+import Immutable from "immutable";
 import Actions from "../constants/Actions";
 
 class EventStore extends BaseStore {
@@ -6,50 +7,47 @@ class EventStore extends BaseStore {
   static storeName = "EventStore";
 
   static handlers = {
-    [Actions.LOAD_EVENTS_SUCCESS]: "handleReceiveEvents",
-    [Actions.UPDATE_SEARCH_DAY]: "handleUpdateSearchDay"
+    [Actions.LOAD_EVENTS_SUCCESS]: "handleReceiveEvents"
   }
 
   constructor (dispatcher) {
     super(dispatcher);
-    this.events = [];
-    this.searchDayString = "Loading..."
+    this.events = Immutable.List([]);
   }
 
-  handleReceiveEvents ({events=[]}) {
-    this.events = events;
+  /**
+   * Dispatch handlers
+   */
+  handleReceiveEvents ({searchDate, events=[]}) {
+    this.events = this.events
+      .filter(event => event.Date !== searchDate) // Remove all for search date
+      .concat(events)
+      .sortBy(event => event.StartDate); // Add new events
     this.emitChange();
   }
 
-  handleUpdateSearchDay (searchDayString) {
-    this.searchDayString = searchDayString;
-    this.emitChange();
-  }
-
-  getSearchDayString () {
-    return this.searchDayString;
-  }
-
+  /**
+   * Getters
+   */
   getEvents () {
-    return this.events;
+    return this.events.toJS();
   }
 
   getEventByID (id) {
     return this.events.find(event => event.ID === id);
   }
 
-  // For sending state to the client
+  /**
+   * Transferring state
+   */
   dehydrate () {
     return {
-      events: this.events,
-      searchDayString: this.searchDayString
+      events: this.events.toJS()
     };
   }
 
-  // For rehydrating server state
   rehydrate (state) {
-    this.events = state.events;
-    this.searchDayString = state.searchDayString;
+    this.events = Immutable.List(state.events);
   }
 }
 

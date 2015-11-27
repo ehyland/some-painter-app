@@ -6,6 +6,13 @@ $logo-colour: #B2AEAD;
 $base-text-colour: #000;
 $footer-heigth: 150px;
 
+a{
+  &, &:hover, &:active, &:focus{
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
 html,body{
   height: 100%;
 }
@@ -29,9 +36,15 @@ body{
   }
 }
 .Header-siteLogo{
+  display: block;
   margin-top: 50px;
   font-size: 18px;
   color: $logo-colour;
+
+  &:hover,&:active,&:focus{
+    color: lighten($logo-colour, 20%);
+    text-decoration: none;
+  }
 }
 
 .Page-title{
@@ -40,13 +53,45 @@ body{
   font-weight: normal;
 }
 
-.EventList{}
-.EventList-header{
+.EventListFilter{
   color: $base-text-colour;
   margin-bottom: 30px;
-  h2{
-    font-size: 24px;
+}
+.EventListFilterBtn{
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+  color: lighten($base-text-colour, 80%);
+
+  @include media-breakpoint-down(md) {
+    display: block;
+  }
+
+  &.active{
+    color: $base-text-colour;
+    margin-bottom: 30px;
+  }
+
+  &:hover, &:active, &:focus{
+    text-decoration: none;
+  }
+
+  &-label{
     margin-bottom: 0;
+    font-size: 14px;
+  }
+  &.active &-label{
+    font-size: 24px;
+  }
+
+  &-date{
+    position: absolute;
+    top: 100%;
+    opacity: 0;
+  }
+  &.active &-date{
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
   }
 }
 

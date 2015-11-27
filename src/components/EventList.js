@@ -1,21 +1,30 @@
 import React, {PropTypes, Component} from "react";
+import EventListFilter from "./EventListFilter";
 import ListEvent from "./ListEvent";
 
 class EventList extends Component {
 
+  renderEvents() {
+    const {events, filterDay} = this.props;
+    const filteredEvents = events.filter(event => event.Date === filterDay)
+
+    if (filteredEvents.length) {
+      return filteredEvents.map(event => (
+        <ListEvent key={event.ID} {...this.props} event={event} />
+      ));
+    }else {
+      return <p>No events...</p>
+    }
+
+
+  }
+
   render() {
-    const {searchDayString, events, galleries} = this.props;
+    const list = this.renderEvents();
     return (
       <section className="EventList">
-        <div className="EventList-header">
-          <h2>TONIGHT</h2>
-          <div className="Date">{searchDayString}</div>
-        </div>
-
-        {events.map(event =>
-          <ListEvent key={event.ID} event={event} gallery={galleries.find(gallery => gallery.ID === event.GalleryID)}/>
-        )}
-
+        <EventListFilter {...this.props}/>
+        {list}
       </section>
     );
   }

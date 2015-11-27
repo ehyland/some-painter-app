@@ -1,5 +1,7 @@
 import BaseStore from "fluxible/addons/BaseStore";
+import Immutable from "immutable";
 import Actions from "../constants/Actions";
+import ListUtils from "../utils/ListUtils";
 
 class GalleryStore extends BaseStore {
 
@@ -11,32 +13,41 @@ class GalleryStore extends BaseStore {
 
   constructor (dispatcher) {
     super(dispatcher);
-    this.galleries = [];
+    this.galleries = Immutable.List([]);
   }
 
+  /**
+   * Dispatch handlers
+   */
   handleReceiveGalleries ({galleries=[]}) {
-    this.galleries = galleries;
+    galleries.forEach(gallery => {
+      this.galleries = ListUtils.listAddOrReplaceByID(this.galleries, gallery);
+    });
     this.emitChange();
   }
 
+  /**
+   * Getters
+   */
   getGalleries () {
-    return this.galleries;
+    return this.galleries.toJS();
   }
 
   getGalleryByID (id) {
     return this.galleries.find(gallery => gallery.ID === id);
   }
 
-  // For sending state to the client
+  /**
+   * Transferring state
+   */
   dehydrate () {
     return {
-      galleries: this.galleries
+      galleries: this.galleries.toJS()
     };
   }
 
-  // For rehydrating server state
   rehydrate (state) {
-    this.galleries = state.galleries;
+    this.galleries = Immutable.List(state.galleries);
   }
 }
 
