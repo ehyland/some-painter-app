@@ -1,6 +1,25 @@
 import React, {PropTypes, Component} from "react";
 
 class ListEvent extends Component {
+
+  renderIncomplete() {
+    return <p>Event data missing</p>
+  }
+
+  renderMapLink (gallery, location) {
+    const {StreetNumber, Route, Suburb, Latitude, Longitude} = location;
+    const keyword = encodeURI(gallery.Title.replace(/\s/g, "+"));
+    const positioning = `@${Latitude},${Longitude},z15`;
+    const href = `https://maps.google.com/maps/search/${keyword}/${positioning}`;
+
+    return (
+      <a href={href} target="_blank" className="ListEvent-location">
+        <div>{gallery.Title}</div>
+        <div>{StreetNumber} {Route} {Suburb}</div>
+      </a>
+    );
+  }
+
   render() {
 
     const {event, galleries, locations} = this.props;
@@ -10,8 +29,10 @@ class ListEvent extends Component {
       gallery = galleries.find(gallery => gallery.ID === event.GalleryID);
       location = locations.find(location => location.ID === gallery.LocationID);
     } catch (e) {
-      return renderIncomplete();
+      return this.renderIncomplete();
     }
+
+    const locationContent = this.renderMapLink(gallery, location);
 
     return (
       <article className="ListEvent">
@@ -20,17 +41,10 @@ class ListEvent extends Component {
           /
           <span className="ListEvent-suburb">{location.Suburb}</span>
         </div>
-        <div className="ListEvent-summary">
-          <div className="ListEvent-artist">{gallery.Title}</div>
-          <div className="ListEvent-location">{`${location.StreetNumber} ${location.Route} ${location.Suburb}`}</div>
-        </div>
+        {locationContent}
         <div className="ListEvent-time">{event.MelbStartTime}</div>
       </article>
     );
-  }
-
-  renderIncomplete() {
-    return <p>loading...</p>
   }
 }
 

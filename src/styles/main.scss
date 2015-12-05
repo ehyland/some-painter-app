@@ -32,12 +32,13 @@ body{
 .Header{
   margin-bottom: 0px;
   @media (min-width: 768px) {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 }
 .Header-siteLogo{
-  display: block;
-  margin-top: 50px;
+  display: inline-block;
+  margin-top: 40px;
+  padding: 10px 0;
   font-size: 18px;
   color: $logo-colour;
 
@@ -113,13 +114,12 @@ body{
 .ListEvent-suburb{
   font-size: 14px;
 }
-.ListEvent-summary{
+.ListEvent-location{
+  display: block;
   font-style: italic;
   font-size: 12px;
   margin-bottom: 8px;
 }
-.ListEvent-artist{}
-.ListEvent-location{}
 .ListEvent-time{}
 
 .Footer{
