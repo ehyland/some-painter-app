@@ -7,8 +7,10 @@ class ListEvent extends Component {
   }
 
   renderMapLink (gallery, location) {
-    const {StreetNumber, Route, Suburb, Latitude, Longitude} = location;
-    const keyword = encodeURI(gallery.Title.replace(/\s/g, "+"));
+    const {StreetNumber, Route, Suburb, State, Country, PostalCode, Latitude, Longitude} = location;
+
+    let keyword = gallery.Title || `${StreetNumber} ${Route} ${Suburb} ${State} ${Country} ${PostalCode}`;
+    keyword = encodeURI(keyword.replace(/\s/g, "+"));
     const positioning = `@${Latitude},${Longitude},z15`;
     const href = `https://maps.google.com/maps/search/${keyword}/${positioning}`;
 
