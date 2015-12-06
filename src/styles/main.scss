@@ -26,50 +26,87 @@ body{
 /*
   Utilities
 */
-
 .u-underline{
   text-decoration: underline;
 }
 
+/*
+  App
+*/
 .App{
   position: relative;
   padding-bottom: $footer-heigth;
   min-height: 100%;
 }
 
+/*
+  Header
+*/
 .Header{
   margin-bottom: 0px;
   @media (min-width: 768px) {
     margin-bottom: 20px;
   }
-}
-.Header-siteLogo{
-  display: inline-block;
-  margin-top: 40px;
-  padding: 10px 0;
-  font-size: 18px;
-  color: $logo-colour;
 
-  &:hover,&:active,&:focus{
-    color: lighten($logo-colour, 20%);
-    text-decoration: none;
+  &-siteLogo{
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px 0;
+    font-size: 18px;
+    color: $logo-colour;
+
+    &:hover,&:active,&:focus{
+      color: lighten($logo-colour, 20%);
+      text-decoration: none;
+    }
   }
 }
 
-.Page-title{
-  font-size: 2.2em;
-  line-height: 1.15;
-  font-weight: normal;
+/*
+  Page
+*/
+.Page{
+  &-title{
+    font-size: 2.2em;
+    line-height: 1.15;
+    font-weight: normal;
+  }
 }
+
+/*
+  Footer
+*/
+.Footer{
+  position: absolute;
+  bottom:0;
+  left:0;
+  height: $footer-heigth;
+  width:100%;
+  &-copyright{
+    margin-top: $footer-heigth/2 - 20px;
+    font-size: 10px;
+  }
+}
+
+/*
+  EventList
+*/
 .EventList{
   position: relative;
   padding-top: 10px;
 }
 
+/*
+  EventListFilter
+*/
 .EventListFilter{
   color: $base-text-colour;
   margin-bottom: 20px;
 }
+
+/*
+  EventListFilterBtn
+*/
 .EventListFilterBtn{
   position: relative;
   display: inline-block;
@@ -108,38 +145,28 @@ body{
   }
 }
 
+/*
+  ListEvent
+*/
 .ListEvent{
   margin-bottom: 40px;
-}
-.ListEvent-title{
-  margin-bottom: 8px;
-}
-.ListEvent-galleryName{
-  font-size: 16px;
-  font-weight: bold;
-  @at-root a#{&}{
-    text-decoration: underline;
+  &-title{
+    margin-bottom: 8px;
   }
-}
-.ListEvent-suburb{
-  font-size: 14px;
-}
-.ListEvent-location{
-  display: block;
-  font-style: italic;
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-.ListEvent-time{}
-
-.Footer{
-  position: absolute;
-  bottom:0;
-  left:0;
-  height: $footer-heigth;
-  width:100%;
-}
-.Footer-copyright{
-  margin-top: $footer-heigth/2 - 20px;
-  font-size: 10px;
+  &-galleryName{
+    font-size: 16px;
+    font-weight: bold;
+    @at-root a#{&}{
+      text-decoration: underline;
+    }
+  }
+  &-suburb{
+    font-size: 14px;
+  }
+  &-location{
+    display: block;
+    font-style: italic;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
 }
