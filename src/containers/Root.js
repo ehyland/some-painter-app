@@ -14,6 +14,9 @@ if (process.env.BROWSER) {
 
 @provideContext
 @handleHistory({enableScroll: false})
+@connectToStores(["AppConfigStore"], context => ({
+  appConfig: context.getStore("AppConfigStore").getConfig()
+}))
 class Root extends Component {
   static propTypes = {
     // props coming from fluxible-router's handleHistory

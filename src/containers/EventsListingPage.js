@@ -10,6 +10,7 @@ import EventList from "../components/EventList";
   const params = context.getStore("RouteStore").getCurrentRoute().params;
   const date = params.date || moment.tz("Australia/Melbourne").format("YYYY-MM-DD");
   return {
+    eventsFilterDate: date,
     events: eventStore.getEventsForDate(date),
     eventsLoadingStatus: eventStore.getLoadingStatusForDate(date),
     galleries: context.getStore("GalleryStore").getGalleries(),

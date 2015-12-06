@@ -1,8 +1,13 @@
 /*eslint react/no-danger: 0*/
 
 import React, {Component, PropTypes} from "react";
+import { provideContext, connectToStores } from "fluxible-addons-react";
 import ga from "../ga";
 
+@provideContext()
+@connectToStores(["AppConfigStore"], context => ({
+  appConfig: context.getStore("AppConfigStore").getConfig()
+}))
 class HTML extends Component {
   static propTypes = {
     context: PropTypes.object.isRequired,
@@ -15,6 +20,8 @@ class HTML extends Component {
   render() {
 
     const {css, scripts, content, state, googleAnalyticsCode} = this.props;
+    const {siteTitle, metaDescription, metaKeywords} = this.props.appConfig;
+
     return(
       <html lang="en">
         <head>
@@ -23,10 +30,10 @@ class HTML extends Component {
           <meta httpEquiv="x-ua-compatible" content="ie=edge"/>
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
 
-          <meta name="keywords" content="Art, Art gallery, gallery, Melbourne, exhibitions, exhibition, tonight, Australia, events"/>
-          <meta name="description" content="Art gallery openings, exhibitions and special events on in Melbourne tonight."/>
+          <meta name="keywords" content={metaKeywords}/>
+          <meta name="description" content={metaDescription}/>
 
-          <title>Somepainter - Art gallery openings in Melbourne tonight</title>
+          <title>{siteTitle}</title>
 
           {css.map((href, index) => <link key={index} rel="stylesheet" href={href}/>)}
 

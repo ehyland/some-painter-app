@@ -23,6 +23,12 @@ a{
     text-decoration: none;
     color: inherit;
   }
+  &.u-hightlited{
+    color: #9C27B0;
+    &:hover, &:active{
+      text-decoration: underline;
+    }
+  }
 }
 
 /*
