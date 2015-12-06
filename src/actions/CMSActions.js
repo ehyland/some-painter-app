@@ -8,6 +8,12 @@ export default {
     // Get Search Date
     const searchDate = params.date || moment.tz("Australia/Melbourne").format("YYYY-MM-DD");
 
+    // Check event data isn't currently loading
+    if (context.getStore("EventStore").getLoadingStatusForDate(searchDate) === "LOADING") {
+      done();
+      return;
+    }
+
     // Get endPoint url
     let endPoint = `events/${searchDate}`;
     if (!context.getStore("AppConfigStore").hasConfigBeenFetched()) {
