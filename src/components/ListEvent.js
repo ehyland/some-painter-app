@@ -41,9 +41,17 @@ class ListEvent extends Component {
   renderLocation (gallery, location) {
     const {StreetNumber, Route, Suburb, State, Country, PostalCode} = location;
 
-    let keyword = `${gallery.Title}, ${StreetNumber} ${Route}, ${Suburb} ${State} ${PostalCode}, ${Country}`;
-    keyword = encodeURI(keyword.replace(/\s/g, "+"));
-    const href = `https://maps.google.com/maps?q=${keyword}`;
+    let address = `${StreetNumber} ${Route}, ${Suburb} ${State} ${PostalCode}, ${Country}`;
+
+    // Prepend galleryname if set
+    if (gallery.Title) {
+      address = `${gallery.Title}, ${address}`;
+    }
+
+    // Replace spaces with + then url encode
+    address = encodeURI(address.replace(/\s/g, "+"));
+
+    const href = `https://maps.google.com/maps?q=${address}`;
 
     return (
       <a href={href} target="_blank" className="ListEvent-location">
