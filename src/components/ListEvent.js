@@ -2,6 +2,12 @@ import React, {PropTypes, Component} from "react";
 
 class ListEvent extends Component {
 
+  static propTypes = {
+    event: PropTypes.object.isRequired,
+    gallery: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
+  }
+
   renderIncomplete() {
     return <p>Event data missing</p>
   }
@@ -49,17 +55,7 @@ class ListEvent extends Component {
   }
 
   render() {
-
-    const {event, galleries, locations} = this.props;
-    let gallery, location;
-
-    try {
-      gallery = galleries.find(gallery => gallery.ID === event.GalleryID);
-      location = locations.find(location => location.ID === gallery.LocationID);
-    } catch (e) {
-      return null;
-    }
-
+    const {event, gallery, location} = this.props;
     return (
       <article className="ListEvent">
         {this.renderTitle(gallery, location)}

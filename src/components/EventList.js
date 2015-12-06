@@ -25,7 +25,32 @@ class EventList extends Component {
   }
 
   render () {
-    const {events} = this.props;
+    const {events, galleries, locations} = this.props;
+
+    // parse for ListEvent.
+    // Filter out events with missing location or gallery
+    const packagedEvents = events
+      .map(event => {
+        let gallery, location;
+
+        // check gallery
+        if (!(gallery = galleries.find(testGal => testGal.ID === event.GalleryID))) {
+          return false;
+        }
+
+        // check location
+        if (!(location = locations.find(testLoc => testLoc.ID === gallery.LocationID))) {
+          return false;
+        }
+
+        // All good
+        return {
+          event: event,
+          gallery: gallery,
+          location: location
+        };
+      })
+      .filter(packagedEvent => packagedEvent !== false);
 
     const statusMessage = this.renderStatusMessage();
 
@@ -34,8 +59,12 @@ class EventList extends Component {
         <div className={classNames({"EventList-statusMesage": true, "active": statusMessage})}>
           {statusMessage}
         </div>
-        {events.map(event => (
-          <ListEvent {...this.props} key={event.ID} event={event} />
+        {packagedEvents.map(({event, gallery, location}) => (
+          <ListEvent {...this.props}
+            key={event.ID}
+            event={event}
+            gallery={gallery}
+            location={location} />
         ))}
       </section>
     );
