@@ -16,7 +16,7 @@ class AppConfigStore extends BaseStore {
       siteTitle: "",
       metaDescription: "",
       metaKeywords: "",
-      noEventsText: ["No Events"],
+      noEventsMessages: ["No Events"],
       noEventsFormURL: ""
     };
   }
@@ -24,14 +24,14 @@ class AppConfigStore extends BaseStore {
   /**
    * Dispatch handlers
    */
-  handleReceiveAppConfig ({DefaultSiteTitle = "", DefaultMetaDescription = "", DefaultMetaKeywords = "", NoEventsText = "", NoEventsFormURL = ""}) {
+  handleReceiveAppConfig ({DefaultSiteTitle = "", DefaultMetaDescription = "", DefaultMetaKeywords = "", NoEventsMessages = "", NoEventsFormURL = ""}) {
 
     this.configFetched = true;
 
     this.config.siteTitle = DefaultSiteTitle,
     this.config.metaDescription = DefaultMetaDescription,
     this.config.metaKeywords = DefaultMetaKeywords,
-    this.config.noEventsText = NoEventsText.split("\n"),
+    this.config.noEventsMessages = NoEventsMessages.split("\n"),
     this.config.noEventsFormURL = NoEventsFormURL
 
     this.emitChange();

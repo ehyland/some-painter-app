@@ -1,35 +1,16 @@
 import React, {PropTypes, Component} from "react";
 import classNames from "classnames";
 import ListEvent from "./ListEvent";
+import moment from "moment-timezone";
 
 class EventList extends Component {
 
-  renderStatusMessage () {
-    const {eventsLoadingStatus, events, isNavigateComplete} = this.props;
-    let message;
-
-    if (events.length && eventsLoadingStatus !== "ERROR") {
-      // Dont't display loading message if there are some events listed
-      // Will update this when a better loading indicator has been designed
-      return;
-    }
-    if (isNavigateComplete && eventsLoadingStatus === "ERROR") {
-      return <p>Error loading event</p>
-    }
-    else if (isNavigateComplete && !events.length) {
-      return <p>No events</p>
-    }
-    else if (!isNavigateComplete || eventsLoadingStatus === "LOADING") {
-      return <p>Loading events</p>
-    }
-  }
-
-  render () {
+  packageEvents () {
     const {events, galleries, locations} = this.props;
 
-    // parse for ListEvent.
+    // Parse for ListEvent.
     // Filter out events with missing location or gallery
-    const packagedEvents = events
+    return events
       .map(event => {
         let gallery, location;
 
@@ -51,21 +32,89 @@ class EventList extends Component {
         };
       })
       .filter(packagedEvent => packagedEvent !== false);
+  }
 
-    const statusMessage = this.renderStatusMessage();
+  renderNoEventsView () {
+    const {appConfig, eventsFilterDate} = this.props;
+    const {noEventsMessages, noEventsFormURL} = appConfig;
+    const now = moment.tz("Australia/Melbourne");
+    const searchOffset = moment(eventsFilterDate).diff(now, "days")
+
+    let message;
+    let extraContent = null;
+
+    // If in past
+    if (searchOffset < 0) {
+      message = "No events back here. Why not try tonights events?"
+    }
+
+    // If custom message set
+    else if (noEventsMessages[searchOffset]) {
+      message = noEventsMessages[searchOffset];
+    }
+
+    // If no custom message
+    else {
+      message = noEventsMessages[noEventsMessages.length - 1];
+    }
+
+    // If last message add form
+    if (searchOffset >= (noEventsMessages.length - 1)) {
+      extraContent = (
+        <p>
+          To help us improve can you answer this one question <a className="u-hightlited" href={noEventsFormURL} target="_blank">this one question</a>?
+        </p>
+      );
+    }
+
+
+    return (
+      <div className="ListEvent-noEventsView">
+        <p>{message}</p>
+        {extraContent}
+      </div>
+    );
+  }
+
+  renderStatusMessage (events) {
+    const {eventsLoadingStatus, isNavigateComplete} = this.props;
+    let message;
+
+    if (events.length && eventsLoadingStatus !== "ERROR") {
+      // Dont't display loading message if there are some events listed
+      // Will update this when a better loading indicator has been designed
+      return;
+    }
+    if (isNavigateComplete && eventsLoadingStatus === "ERROR") {
+      return <p>Error loading event</p>
+    }
+    else if (isNavigateComplete && !events.length) {
+      return this.renderNoEventsView();
+    }
+    else if (!isNavigateComplete || eventsLoadingStatus === "LOADING") {
+      return <p>Loading events</p>
+    }
+  }
+
+  renderList (events) {
+    return events.map(({event, gallery, location}) => (
+      <ListEvent {...this.props}
+        key={event.ID}
+        event={event}
+        gallery={gallery}
+        location={location} />
+    ));
+  }
+
+  render () {
+    const packagedEvents = this.packageEvents();
+    const statusMessage = this.renderStatusMessage(packagedEvents);
+    const listContent = this.renderList(packagedEvents);
 
     return (
       <section className="EventList">
-        <div className={classNames({"EventList-statusMesage": true, "active": statusMessage})}>
-          {statusMessage}
-        </div>
-        {packagedEvents.map(({event, gallery, location}) => (
-          <ListEvent {...this.props}
-            key={event.ID}
-            event={event}
-            gallery={gallery}
-            location={location} />
-        ))}
+        {statusMessage}
+        {listContent}
       </section>
     );
   }
