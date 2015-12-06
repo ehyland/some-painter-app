@@ -23,6 +23,14 @@ body{
   color: $base-text-colour;
 }
 
+/*
+  Utilities
+*/
+
+.u-underline{
+  text-decoration: underline;
+}
+
 .App{
   position: relative;
   padding-bottom: $footer-heigth;
@@ -108,8 +116,10 @@ body{
 }
 .ListEvent-galleryName{
   font-size: 16px;
-  text-decoration: underline;
   font-weight: bold;
+  @at-root a#{&}{
+    text-decoration: underline;
+  }
 }
 .ListEvent-suburb{
   font-size: 14px;

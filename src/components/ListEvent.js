@@ -6,7 +6,33 @@ class ListEvent extends Component {
     return <p>Event data missing</p>
   }
 
-  renderMapLink (gallery, location) {
+  renderTitle (gallery, location) {
+
+    let galleryTitleEl, elType;
+    const propsObj = {
+      className: "ListEvent-galleryName",
+      target: "_blank"
+    };
+
+    if (gallery.WebsiteURL) {
+      elType = "a";
+      propsObj.href = gallery.WebsiteURL;
+    }else {
+      elType = "span";
+    }
+
+    galleryTitleEl = React.createElement(elType, propsObj, gallery.Title);
+
+    return (
+        <div className="ListEvent-title">
+          {galleryTitleEl}
+          /
+          <span className="ListEvent-suburb">{location.Suburb}</span>
+        </div>
+    );
+  }
+
+  renderLocation (gallery, location) {
     const {StreetNumber, Route, Suburb, State, Country, PostalCode, Latitude, Longitude} = location;
 
     let keyword = gallery.Title || `${StreetNumber} ${Route} ${Suburb} ${State} ${Country} ${PostalCode}`;
@@ -31,19 +57,13 @@ class ListEvent extends Component {
       gallery = galleries.find(gallery => gallery.ID === event.GalleryID);
       location = locations.find(location => location.ID === gallery.LocationID);
     } catch (e) {
-      return this.renderIncomplete();
+      return null;
     }
-
-    const locationContent = this.renderMapLink(gallery, location);
 
     return (
       <article className="ListEvent">
-        <div className="ListEvent-title">
-          <span className="ListEvent-galleryName">{gallery.Title}</span>
-          /
-          <span className="ListEvent-suburb">{location.Suburb}</span>
-        </div>
-        {locationContent}
+        {this.renderTitle(gallery, location)}
+        {this.renderLocation(gallery, location)}
         <div className="ListEvent-time">{event.MelbStartTime}</div>
       </article>
     );
