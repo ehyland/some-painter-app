@@ -1,17 +1,9 @@
-@import "includes/bootstrap-4.0.0-alpha/scss/bootstrap-reboot";
-@import "includes/bootstrap-4.0.0-alpha/scss/bootstrap-grid";
-@import './fonts/Montserrat/font-face.scss';
+@import 'includes/bootstrap';
+@import 'fonts/Montserrat/font-face.scss';
 
 $logo-colour: #B2AEAD;
 $base-text-colour: #000;
 $footer-heigth: 150px;
-
-a{
-  &, &:hover, &:active, &:focus{
-    text-decoration: none;
-    color: inherit;
-  }
-}
 
 html,body{
   height: 100%;
@@ -23,52 +15,109 @@ body{
   color: $base-text-colour;
 }
 
+/*
+  Typography
+*/
+a{
+  &, &:hover, &:active, &:focus{
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+/*
+  Utilities
+*/
+.u-underline{
+  text-decoration: underline;
+}
+
+/*
+  App
+*/
 .App{
   position: relative;
   padding-bottom: $footer-heigth;
   min-height: 100%;
 }
 
+/*
+  Header
+*/
 .Header{
   margin-bottom: 0px;
-  @media (min-width: 768px) {
+
+  @media (min-width: $screen-sm-min) {
     margin-bottom: 20px;
   }
-}
-.Header-siteLogo{
-  display: inline-block;
-  margin-top: 40px;
-  padding: 10px 0;
-  font-size: 18px;
-  color: $logo-colour;
 
-  &:hover,&:active,&:focus{
-    color: lighten($logo-colour, 20%);
-    text-decoration: none;
+  &-siteLogo{
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px 0;
+    font-size: 18px;
+    color: $logo-colour;
+
+    &:hover,&:active,&:focus{
+      color: lighten($logo-colour, 20%);
+      text-decoration: none;
+    }
   }
 }
 
-.Page-title{
-  font-size: 2.2em;
-  line-height: 1.15;
-  font-weight: normal;
+/*
+  Page
+*/
+.Page{
+  &-title{
+    margin: 0;
+    font-size: 2.5em;
+    line-height: 1.15;
+    font-weight: normal;
+  }
 }
+
+/*
+  Footer
+*/
+.Footer{
+  position: absolute;
+  bottom:0;
+  left:0;
+  height: $footer-heigth;
+  width:100%;
+  &-copyright{
+    margin-top: $footer-heigth/2 - 20px;
+    font-size: 10px;
+  }
+}
+
+/*
+  EventList
+*/
 .EventList{
   position: relative;
   padding-top: 10px;
 }
 
+/*
+  EventListFilter
+*/
 .EventListFilter{
   color: $base-text-colour;
   margin-bottom: 20px;
 }
+
+/*
+  EventListFilterBtn
+*/
 .EventListFilterBtn{
   position: relative;
   display: inline-block;
   margin-right: 20px;
   color: lighten($base-text-colour, 80%);
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: $screen-sm-max) {
     display: block;
   }
 
@@ -100,36 +149,28 @@ body{
   }
 }
 
+/*
+  ListEvent
+*/
 .ListEvent{
   margin-bottom: 40px;
-}
-.ListEvent-title{
-  margin-bottom: 8px;
-}
-.ListEvent-galleryName{
-  font-size: 16px;
-  text-decoration: underline;
-  font-weight: bold;
-}
-.ListEvent-suburb{
-  font-size: 14px;
-}
-.ListEvent-location{
-  display: block;
-  font-style: italic;
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-.ListEvent-time{}
-
-.Footer{
-  position: absolute;
-  bottom:0;
-  left:0;
-  height: $footer-heigth;
-  width:100%;
-}
-.Footer-copyright{
-  margin-top: $footer-heigth/2 - 20px;
-  font-size: 10px;
+  &-title{
+    margin-bottom: 8px;
+  }
+  &-galleryName{
+    font-size: 16px;
+    font-weight: bold;
+    @at-root a#{&}{
+      text-decoration: underline;
+    }
+  }
+  &-suburb{
+    font-size: 14px;
+  }
+  &-location{
+    display: block;
+    font-style: italic;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
 }
