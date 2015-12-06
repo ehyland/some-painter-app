@@ -1,17 +1,9 @@
-@import "includes/bootstrap-4.0.0-alpha/scss/bootstrap-reboot";
-@import "includes/bootstrap-4.0.0-alpha/scss/bootstrap-grid";
-@import './fonts/Montserrat/font-face.scss';
+@import 'includes/bootstrap';
+@import 'fonts/Montserrat/font-face.scss';
 
 $logo-colour: #B2AEAD;
 $base-text-colour: #000;
 $footer-heigth: 150px;
-
-a{
-  &, &:hover, &:active, &:focus{
-    text-decoration: none;
-    color: inherit;
-  }
-}
 
 html,body{
   height: 100%;
@@ -21,6 +13,16 @@ body{
   letter-spacing: 1px;
   text-transform: uppercase;
   color: $base-text-colour;
+}
+
+/*
+  Typography
+*/
+a{
+  &, &:hover, &:active, &:focus{
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 /*
@@ -44,7 +46,8 @@ body{
 */
 .Header{
   margin-bottom: 0px;
-  @media (min-width: 768px) {
+
+  @media (min-width: $screen-sm-min) {
     margin-bottom: 20px;
   }
 
@@ -67,7 +70,8 @@ body{
 */
 .Page{
   &-title{
-    font-size: 2.2em;
+    margin: 0;
+    font-size: 2.5em;
     line-height: 1.15;
     font-weight: normal;
   }
@@ -113,7 +117,7 @@ body{
   margin-right: 20px;
   color: lighten($base-text-colour, 80%);
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: $screen-sm-max) {
     display: block;
   }
 
