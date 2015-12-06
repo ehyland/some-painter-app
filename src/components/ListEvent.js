@@ -39,12 +39,11 @@ class ListEvent extends Component {
   }
 
   renderLocation (gallery, location) {
-    const {StreetNumber, Route, Suburb, State, Country, PostalCode, Latitude, Longitude} = location;
+    const {StreetNumber, Route, Suburb, State, Country, PostalCode} = location;
 
-    let keyword = gallery.Title || `${StreetNumber} ${Route} ${Suburb} ${State} ${Country} ${PostalCode}`;
+    let keyword = `${gallery.Title}, ${StreetNumber} ${Route}, ${Suburb} ${State} ${PostalCode}, ${Country}`;
     keyword = encodeURI(keyword.replace(/\s/g, "+"));
-    const positioning = `@${Latitude},${Longitude},z15`;
-    const href = `https://maps.google.com/maps/search/${keyword}/${positioning}`;
+    const href = `https://maps.google.com/maps?q=${keyword}`;
 
     return (
       <a href={href} target="_blank" className="ListEvent-location">
