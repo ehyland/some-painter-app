@@ -2,9 +2,13 @@ import path from "path";
 import webpack from "webpack";
 import WebpackErrorNotificationPlugin from "webpack-error-notification";
 
+import commonLoaders from "./common-loaders";
+
 const host = process.env.HOST || "0.0.0.0";
 const port = (process.env.PORT + 1) || 3001;
 const dist = path.resolve(__dirname, "../static/build");
+
+const srcPath = path.resolve(__dirname, "../src");
 
 const config = {
   devtool: "source-map",
@@ -22,14 +26,21 @@ const config = {
   },
   module: {
     loaders: [
-      { test: /\.json$/, loader: "json-loader"},
-      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel?cacheDirectory"] },
-      { test: /\.scss$/, loaders: ["style", "css", "autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true"] },
-      { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
-      { test: /\.woff2$/, loader: "url-loader?limit=10000&mimetype=application/font-woff2" },
-      { test: /\.woff$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.(ttf|eot)$/, loader: "file-loader" }
-    ]
+
+      // Javascript
+      {
+        test: /\.js$/,
+        include: srcPath,
+        loaders: ["react-hot", "babel?cacheDirectory"]
+      },
+
+      // Styles
+      {
+        test: /\.scss$/,
+        include: srcPath,
+        loaders: ["style", "css", "autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true"]
+      }
+    ].concat(commonLoaders)
   },
   plugins: [
 
