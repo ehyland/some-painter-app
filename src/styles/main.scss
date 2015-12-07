@@ -3,7 +3,7 @@
 
 $logo-colour: #B2AEAD;
 $base-text-colour: #000;
-$footer-heigth: 150px;
+$footer-heigth: 100px;
 
 html,body{
   height: 100%;
@@ -87,15 +87,64 @@ a{
   Footer
 */
 .Footer{
+  $social-logo-height: 24px;
+
   position: absolute;
   bottom:0;
   left:0;
   height: $footer-heigth;
+  padding-top: ($footer-heigth - $social-logo-height)/2;
   width:100%;
-  &-copyright{
-    margin-top: $footer-heigth/2 - 20px;
-    font-size: 10px;
+
+  &-copyright,
+  &-socialLink{
+    display: inline-block;
+    vertical-align: middle;
   }
+  &-copyright{
+    font-size: 10px;
+    margin-right: 50px;
+    @media (max-width: $screen-sm-max) {
+      margin-right: 26px;
+    }
+  }
+  &-socialLink{
+    height: $social-logo-height;
+    width: $social-logo-height;
+    margin-right: 40px;
+    fill: #000;
+    transition: fill 0.1s ease-out;
+
+    @media (max-width: $screen-sm-max) {
+      margin-right: 16px;
+    }
+
+    &:hover{
+      fill: #5A5A5A;
+    }
+  }
+
+  &::before {
+    content:"";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(5px);
+  }
+
+  & .SocialIcon{
+    width: auto;
+    height: 100%;
+  }
+}
+
+/*
+  SocialIcon
+*/
+.SocialIcon{
+  display: block;
 }
 
 /*
@@ -174,7 +223,7 @@ a{
     font-size: 14px;
   }
   &-location{
-    display: block;
+    display: inline-block;
     font-style: italic;
     font-size: 12px;
     margin-bottom: 8px;
