@@ -6,7 +6,10 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var strip = require("strip-loader");
 var transformStats = require("./transformStats");
 
+var commonLoaders = require("./common-loaders");
 var dist = path.resolve(__dirname, "../static/build");
+
+var srcPath = path.resolve(__dirname, "../src");
 
 module.exports = {
   devtool: "source-map",
@@ -20,14 +23,21 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.json$/, loader: "json-loader"},
-      { test: /\.js$/, exclude: /node_modules/, loaders: [strip.loader("debug"), "babel"] },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract("style", "css!autoprefixer?browsers=last 2 version!sass") },
-      { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
-      { test: /\.woff2$/, loader: "url?limit=10000&mimetype=application/font-woff2" },
-      { test: /\.woff$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-      { test: /\.(ttf|eot)$/, loader: "file" }
-    ]
+
+      // Javascript
+      {
+        test: /\.js$/,
+        include: srcPath,
+        loaders: [strip.loader("debug"), "babel"]
+      },
+
+      // Styles
+      {
+        test: /\.scss$/,
+        include: srcPath,
+        loader: ExtractTextPlugin.extract("style", "css!autoprefixer?browsers=last 2 version!sass")
+      }
+    ].concat(commonLoaders)
   },
   plugins: [
     new ExtractTextPlugin("[name]-[chunkhash].css"),
