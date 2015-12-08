@@ -37,9 +37,9 @@ class HTML extends Component {
 
           {css.map((href, index) => <link key={index} rel="stylesheet" href={href}/>)}
 
-          <script dangerouslySetInnerHTML={{__html: ga}}/>
         </head>
         <body>
+          <script dangerouslySetInnerHTML={{__html: ga}}/>
           <div id="app" className="App" dangerouslySetInnerHTML={{__html: content}}/>
           <script dangerouslySetInnerHTML={{__html: state}}/>
           {scripts.map((src, index) => <script key={index} src={src}/>)}
