@@ -1,8 +1,39 @@
 import React, {PropTypes, Component} from "react";
 import {TwitterSVG, FacebookSVG} from "./SVGs";
+import ShareLink from "./ShareLink";
 import classNames from "classnames"
 
 class Footer extends Component {
+
+  paramsToString (params) {
+    return Object.keys(params).reduce( (result, key, i) => {
+      result += (i === 0) ? "?" : "&";
+      result += `${key}=${encodeURIComponent(params[key])}`;
+      return result;
+    }, "");
+  }
+
+  getFBShareLink () {
+    const params = {
+      app_id: "199112500427767",
+      display: "popup",
+      href: "http://somepainter.com.au/",
+      redirect_uri: "http://somepainter.com.au/thank-you/facebook-share"
+    };
+
+    return "https://www.facebook.com/dialog/share" + this.paramsToString(params);
+  }
+
+  getTwitterShareLink () {
+    const params = {
+      "text": "Art gallery openings in melbourne",
+      "url": "http://somepainter.com/",
+      "hashtags": "melbourne,artgalleryopenings",
+      "via": "bysomepainter"
+    };
+
+    return "https://twitter.com/intent/tweet" + this.paramsToString(params);
+  }
 
   render() {
     const gridClasses = classNames([
@@ -16,12 +47,12 @@ class Footer extends Component {
           <div className="row">
             <div className={gridClasses}>
               <div className="Footer-copyright">Copyright 2015 -Somepainter</div>
-              <a className="Footer-socialLink" target="_blank" href="https://www.facebook.com/Somepainter-509684752525178/">
+              <ShareLink className="Footer-socialLink" href={this.getFBShareLink()}>
                 <FacebookSVG />
-              </a>
-              <a className="Footer-socialLink" target="_blank" href="https://twitter.com/bysomepainter">
+              </ShareLink>
+              <ShareLink className="Footer-socialLink" href={this.getTwitterShareLink()}>
                 <TwitterSVG />
-              </a>
+              </ShareLink>
             </div>
           </div>
         </div>
@@ -29,5 +60,6 @@ class Footer extends Component {
     );
   }
 }
+
 
 export default Footer;

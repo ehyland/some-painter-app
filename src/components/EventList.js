@@ -36,7 +36,8 @@ class EventList extends Component {
 
   renderNoEventsView () {
     const {appConfig, eventsFilterDate} = this.props;
-    const {noEventsMessages, noEventsFormURL} = appConfig;
+    const {NoEventsFormURL} = appConfig;
+    const NoEventsMessages = appConfig.NoEventsMessages.split("\n");
     const now = moment.tz("Australia/Melbourne");
     const searchOffset = moment(eventsFilterDate).diff(now, "days")
 
@@ -49,20 +50,20 @@ class EventList extends Component {
     }
 
     // If custom message set
-    else if (noEventsMessages[searchOffset]) {
-      message = noEventsMessages[searchOffset];
+    else if (NoEventsMessages[searchOffset]) {
+      message = NoEventsMessages[searchOffset];
     }
 
     // If no custom message
     else {
-      message = noEventsMessages[noEventsMessages.length - 1];
+      message = NoEventsMessages[NoEventsMessages.length - 1];
     }
 
     // If last message add form
-    if (searchOffset >= (noEventsMessages.length - 1)) {
+    if (searchOffset >= (NoEventsMessages.length - 1)) {
       extraContent = (
         <p>
-          To help us improve can you answer this one question <a className="u-hightlited" href={noEventsFormURL} target="_blank">this one question</a>?
+          To help us improve can you answer this one question <a className="u-hightlited" href={NoEventsFormURL} target="_blank">this one question</a>?
         </p>
       );
     }
