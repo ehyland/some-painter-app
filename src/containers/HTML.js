@@ -20,7 +20,7 @@ class HTML extends Component {
   render() {
 
     const {css, scripts, content, state, googleAnalyticsCode} = this.props;
-    const {siteTitle, metaDescription, metaKeywords} = this.props.appConfig;
+    const {DefaultSiteTitle, DefaultMetaDescription, DefaultMetaKeywords} = this.props.appConfig;
 
     return(
       <html lang="en">
@@ -30,10 +30,10 @@ class HTML extends Component {
           <meta httpEquiv="x-ua-compatible" content="ie=edge"/>
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8"/>
 
-          <meta name="keywords" content={metaKeywords}/>
-          <meta name="description" content={metaDescription}/>
+          <meta name="keywords" content={DefaultMetaKeywords}/>
+          <meta name="description" content={DefaultMetaDescription}/>
 
-          <title>{siteTitle}</title>
+          <title>{DefaultSiteTitle}</title>
 
           {css.map((href, index) => <link key={index} rel="stylesheet" href={href}/>)}
 
