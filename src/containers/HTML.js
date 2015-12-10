@@ -2,6 +2,7 @@
 
 import React, {Component, PropTypes} from "react";
 import { provideContext, connectToStores } from "fluxible-addons-react";
+import config from "../config";
 import ga from "../ga";
 
 @provideContext()
@@ -29,6 +30,13 @@ class HTML extends Component {
           property: option.substr("Default_".length).toLowerCase().replace(/_/g, ":"),
           content: this.props.appConfig[option]
         };
+      })
+      .push({
+        property: "og:site_name",
+        content: "Somepainter"
+      },{
+        property: "fb:app_id",
+        content: config.fbAppId
       });
 
     return(
