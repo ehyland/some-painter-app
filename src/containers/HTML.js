@@ -22,6 +22,15 @@ class HTML extends Component {
     const {css, scripts, content, state, googleAnalyticsCode} = this.props;
     const {DefaultSiteTitle, DefaultMetaDescription, DefaultMetaKeywords} = this.props.appConfig;
 
+    const openGraphTags = Object.keys(this.props.appConfig)
+      .filter(option => option.match(/^(Default_OG_)/))
+      .map(option => {
+        return {
+          property: option.substr("Default_OG_".length).toLowerCase().replace(/_/g, ":"),
+          content: this.props.appConfig[option]
+        };
+      });
+
     return(
       <html lang="en">
         <head>
@@ -32,6 +41,10 @@ class HTML extends Component {
 
           <meta name="keywords" content={DefaultMetaKeywords}/>
           <meta name="description" content={DefaultMetaDescription}/>
+
+          {openGraphTags.map(props => (
+            <meta key={props.property} property={props.property} content={props.content} />
+          ))}
 
           <title>{DefaultSiteTitle}</title>
 
