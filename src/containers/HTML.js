@@ -26,7 +26,7 @@ class HTML extends Component {
       .filter(option => option.match(/^(Default_OG_)/))
       .map(option => {
         return {
-          property: option.substr("Default_OG_".length).toLowerCase().replace(/_/g, ":"),
+          property: option.substr("Default_".length).toLowerCase().replace(/_/g, ":"),
           content: this.props.appConfig[option]
         };
       });
