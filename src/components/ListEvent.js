@@ -41,8 +41,14 @@ class ListEvent extends Component {
   renderLocation (gallery, location) {
     const {StreetNumber, Route, Suburb, State, Country, PostalCode} = location;
 
-    let keyword = `${gallery.Title}, ${StreetNumber} ${Route}, ${Suburb} ${State} ${PostalCode}, ${Country}`;
-    keyword = encodeURI(keyword.replace(/\s/g, "+"));
+    const filterEmptyPart = part => part !== "" && part !== null;
+
+    const keyword = [[gallery.Title], [StreetNumber, Route], [Suburb, State, PostalCode], [Country]]
+      .filter(section => section.filter(filterEmptyPart).length) // Filter out empty sections
+      .map(section => section.filter(filterEmptyPart).join(" ")) // Filter out empty parts
+      .join(", ") // Join sections
+      .replace(/\s/g, "+"); // replace whitespace with +
+
     const href = `https://maps.google.com/maps?q=${keyword}`;
 
     return (
