@@ -9,7 +9,16 @@
     "build": "webpack --config ./webpack/prod.config.js",
     "start": "NODE_ENV=production node index"
   },
-  "author": "Eamon Hyland",
+  "homepage": "https://github.com/ehyland/some-painter-app.git",
+  "repository" : {
+    "type" : "git",
+    "url" : "git+https://github.com/ehyland/some-painter-app.git"
+  },
+  "author":{
+    "name" : "Eamon Hyland",
+    "email" : "ehyland90@gmail.com",
+    "url" : "https://eamon.io"
+  },
   "license": "ISC",
   "dependencies": {
     "autoprefixer-loader": "^3.1.0",
