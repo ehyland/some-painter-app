@@ -4,6 +4,7 @@
   "description": "somepainter.com",
   "main": "index.js",
   "scripts": {
+    "update": "git pull && npm install && npm run build && pm2 restart some-painter-app",
     "dev": "DEBUG=painter:* NODE_ENV=development node index",
     "build": "webpack --config ./webpack/prod.config.js",
     "start": "NODE_ENV=production node index"
