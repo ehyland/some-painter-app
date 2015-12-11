@@ -1,7 +1,8 @@
 import React, {PropTypes, Component} from "react";
 import {TwitterSVG, FacebookSVG} from "./SVGs";
 import ShareLink from "./ShareLink";
-import classNames from "classnames"
+import classNames from "classnames";
+import {siteURL} from "../config";
 
 class Footer extends Component {
 
@@ -17,8 +18,8 @@ class Footer extends Component {
     const params = {
       app_id: "199112500427767",
       display: "popup",
-      href: "http://somepainter.com.au/",
-      redirect_uri: "http://somepainter.com.au/thank-you/facebook-share"
+      href: siteURL,
+      redirect_uri: siteURL + "thank-you/facebook-share"
     };
 
     return "https://www.facebook.com/dialog/share" + this.paramsToString(params);
@@ -27,7 +28,7 @@ class Footer extends Component {
   getTwitterShareLink () {
     const params = {
       "text": "Art gallery openings in melbourne",
-      "url": "http://somepainter.com/",
+      "url": siteURL,
       "hashtags": "melbourne,artgalleryopenings",
       "via": "bysomepainter"
     };

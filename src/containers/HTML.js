@@ -33,6 +33,9 @@ class HTML extends Component {
       });
 
     openGraphTags.push({
+      property: "og:url",
+      content: config.siteURL
+    },{
       property: "og:site_name",
       content: "Somepainter"
     },{
