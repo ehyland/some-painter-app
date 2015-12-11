@@ -2,6 +2,7 @@
 
 import React, {Component, PropTypes} from "react";
 import { provideContext, connectToStores } from "fluxible-addons-react";
+import config from "../config";
 import ga from "../ga";
 
 @provideContext()
@@ -26,10 +27,18 @@ class HTML extends Component {
       .filter(option => option.match(/^(Default_OG_)/))
       .map(option => {
         return {
-          property: option.substr("Default_OG_".length).toLowerCase().replace(/_/g, ":"),
+          property: option.substr("Default_".length).toLowerCase().replace(/_/g, ":"),
           content: this.props.appConfig[option]
         };
       });
+
+    openGraphTags.push({
+      property: "og:site_name",
+      content: "Somepainter"
+    },{
+      property: "fb:app_id",
+      content: config.fbAppId
+    });
 
     return(
       <html lang="en">
