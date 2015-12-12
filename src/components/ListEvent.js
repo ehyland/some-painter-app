@@ -33,17 +33,17 @@ class ListEvent extends Component {
         <div className="ListEvent-title">
           {galleryTitleEl}
           /
-          <span className="ListEvent-suburb">{location.Suburb}</span>
+          <span className="ListEvent-suburb">{location.Locality}</span>
         </div>
     );
   }
 
   renderLocation (gallery, location) {
-    const {StreetNumber, Route, Suburb, State, Country, PostalCode} = location;
+    const {StreetNumber, Route, Locality, State, Country, PostalCode} = location;
 
     const filterEmptyPart = part => part !== "" && part !== null;
 
-    const keyword = [[gallery.Title], [StreetNumber, Route], [Suburb, State, PostalCode], [Country]]
+    const keyword = [[gallery.Title], [StreetNumber, Route], [Locality, State, PostalCode], [Country]]
       .filter(section => section.filter(filterEmptyPart).length) // Filter out empty sections
       .map(section => section.filter(filterEmptyPart).join(" ")) // Filter out empty parts
       .join(", ") // Join sections
@@ -54,7 +54,7 @@ class ListEvent extends Component {
     return (
       <a href={href} target="_blank" className="ListEvent-location">
         <div>{gallery.Title}</div>
-        <div>{StreetNumber} {Route} {Suburb}</div>
+        <div>{StreetNumber} {Route} {Locality}</div>
       </a>
     );
   }
