@@ -48,7 +48,7 @@ class Root extends Component {
     }
 
     return (
-      <Page>
+      <Page {...this.props}>
         { content }
       </Page>
     );

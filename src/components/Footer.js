@@ -26,10 +26,11 @@ class Footer extends Component {
   }
 
   getTwitterShareLink () {
+    const {Twitter_Share_Text, Twitter_Share_HashTags} = this.props.appConfig;
     const params = {
-      "text": "Art gallery openings in melbourne",
+      "text": Twitter_Share_Text,
       "url": siteURL,
-      "hashtags": "melbourne,artgalleryopenings",
+      "hashtags": Twitter_Share_HashTags,
       "via": "bysomepainter"
     };
 

@@ -10,7 +10,7 @@ class Page extends Component {
       <div className="Page">
         <Header/>
         {this.props.children}
-        <Footer/>
+        <Footer appConfig={this.props.appConfig}/>
       </div>
     );
   }
