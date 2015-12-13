@@ -26,7 +26,7 @@ class Footer extends Component {
   }
 
   getTwitterShareLink () {
-    const {Twitter_Share_Text, Twitter_Share_HashTags} = this.appConfig;
+    const {Twitter_Share_Text, Twitter_Share_HashTags} = this.props.appConfig;
     const params = {
       "text": Twitter_Share_Text,
       "url": siteURL,
