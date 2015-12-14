@@ -7,6 +7,7 @@ import EventStore from "./stores/EventStore";
 import GalleryStore from "./stores/GalleryStore";
 import LocationStore from "./stores/LocationStore";
 import AppConfigStore from "./stores/AppConfigStore";
+import SubmitEventStore from "./stores/SubmitEventStore";
 
 import routes from "./routes";
 import Root from "./containers/Root";
@@ -26,5 +27,6 @@ app.registerStore(EventStore);
 app.registerStore(GalleryStore);
 app.registerStore(LocationStore);
 app.registerStore(AppConfigStore);
+app.registerStore(SubmitEventStore);
 
 export default app;

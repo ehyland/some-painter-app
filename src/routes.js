@@ -1,6 +1,7 @@
 import PageInitActions from "./actions/PageInitActions";
 import EventsListingPage from "./containers/EventsListingPage";
 import ThankYouPage from "./containers/ThankYouPage";
+import SubmitEventPage from "./containers/SubmitEventPage";
 
 export default {
   home: {
@@ -19,6 +20,12 @@ export default {
     path: "/thank-you/:thanksFor",
     method: "get",
     handler: ThankYouPage,
+    action: PageInitActions.eventsListingPage
+  },
+  submitEvent: {
+    path: "/f/submit-event",
+    method: "get",
+    handler: SubmitEventPage,
     action: PageInitActions.eventsListingPage
   }
 };
