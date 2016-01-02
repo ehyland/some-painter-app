@@ -11,9 +11,9 @@ export default keymirror({
   "LOAD_EVENTS_FAILED": null,
 
   // SUBMIT_EVENT_FORM
-  "SUBMIT_EVENT_FORM_FIELD_UPDATE": null,
-  "SUBMIT_EVENT_FORM_START": null,
-  "SUBMIT_EVENT_FORM_SUCCESS": null,
-  "SUBMIT_EVENT_FORM_FAILED": null
+  "FORM_SUBMIT_START": null,
+  "FORM_SUBMIT_SUCCESS": null,
+  "FORM_SUBMIT_FAILED": null,
+  "FORM_FIELD_UPDATE": null
 
 });

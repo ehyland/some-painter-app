@@ -1,7 +1,7 @@
 import PageInitActions from "./actions/PageInitActions";
 import EventsListingPage from "./containers/EventsListingPage";
 import ThankYouPage from "./containers/ThankYouPage";
-import SubmitEventPage from "./containers/SubmitEventPage";
+import FormPage from "./containers/FormPage";
 
 export default {
   home: {
@@ -25,7 +25,7 @@ export default {
   submitEvent: {
     path: "/f/submit-event",
     method: "get",
-    handler: SubmitEventPage,
+    handler: FormPage,
     action: PageInitActions.eventsListingPage
   }
 };

@@ -25,27 +25,27 @@ module.exports = [
 
   // Fonts
   {
-    test: /\.woff2$/,
-    include: fontsSrcPath,
+    test: /\.woff2(\?v=[0-9].[0-9].[0-9])?$/,
+    // include: fontsSrcPath,
     loader: "url?limit=10000&mimetype=application/font-woff2"
   },{
-    test: /\.woff$/,
-    include: fontsSrcPath,
+    test: /\.woff(\?v=[0-9].[0-9].[0-9])?$/,
+    // include: fontsSrcPath,
     loader: "url?limit=10000&mimetype=application/font-woff"
   },{
-    test: /\.(ttf|eot|svg)$/,
-    include: fontsSrcPath,
+    test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+    // include: fontsSrcPath,
     loader: "file"
   },
 
   // Images
   {
     test: /\.(jpe?g|png|gif)$/,
-    include: assetsSrcPath,
+    // include: assetsSrcPath,
     loader: "file"
   },{
     test: /\.svg$/,
-    include: assetsSrcPath,
+    // include: assetsSrcPath,
     loaders: ["file","svgo?" + svgoConfig]
   }
 

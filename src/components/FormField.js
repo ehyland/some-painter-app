@@ -1,54 +1,34 @@
 import React, {Component, PropTypes} from "react";
 import classNames from "classnames";
+import TextField from "./TextField";
+import CheckboxField from "./CheckboxField";
 
 class FormField extends Component {
 
-  static propTypes = {}
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.any,
+    onChange: PropTypes.func.isRequired
+  }
+
   static defaultProps = {}
 
-  constructor(props) {
-    super(props);
-    this.state = {isEmpty: true};
-  }
-
-  getValue() {
-    if (this.props.type === "checkbox") {
-      return this.refs["input"].checked;
-    }else {
-      return this.refs["input"].value;
-    }
-  }
-
-  handleInputChange (e) {
-    const value = this.getValue();
-    const isEmpty = !value.length;
-    if (this.state.isEmpty !== isEmpty) {
-      this.setState({isEmpty: isEmpty});
-    }
-    this.props.onChange({name: this.props.name, value: value});
-  }
-
   render () {
-    const {type, name, value, label, disabled} = this.props;
+    const {type} = this.props;
     const className = classNames({
       "FormField": true,
-      [`FormField--${type}`]: true,
-      "u-filled": !this.state.isEmpty
+      [`FormField--${type}`]: true
     });
 
+    const FieldType = type === "checkbox" ? CheckboxField : TextField;
+
     return (
-      <div className={className}>
-        <input
-          type={type}
-          name={name}
-          value={value}
-          id={name}
-          disabled={disabled}
-          onChange={this.handleInputChange.bind(this)}
-          ref="input"
-        />
-        <label htmlFor={name}>{label}</label>
-      </div>
+      <FieldType
+        className={className}
+        {...this.props}
+      />
     );
   }
 }
