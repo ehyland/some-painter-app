@@ -7,17 +7,19 @@
     "update": "git pull && npm install && npm run build && pm2 restart some-painter-app",
     "dev": "DEBUG=painter:* NODE_ENV=development node index",
     "build": "webpack --config ./webpack/prod.config.js",
-    "start": "NODE_ENV=production node index"
+    "start": "NODE_ENV=production node index",
+    "start-docker": "npm run build && pm2-docker start pm2.json",
+    "start-dev-docker": "pm2-docker start pm2.json"
   },
   "homepage": "https://github.com/ehyland/some-painter-app.git",
-  "repository" : {
-    "type" : "git",
-    "url" : "git+https://github.com/ehyland/some-painter-app.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehyland/some-painter-app.git"
   },
-  "author":{
-    "name" : "Eamon Hyland",
-    "email" : "ehyland90@gmail.com",
-    "url" : "https://eamon.io"
+  "author": {
+    "name": "Eamon Hyland",
+    "email": "ehyland90@gmail.com",
+    "url": "https://eamon.io"
   },
   "license": "ISC",
   "dependencies": {
@@ -62,6 +64,7 @@
     "babel-eslint": "^4.1.6",
     "eslint": "^1.10.1",
     "eslint-plugin-react": "^3.10.0",
+    "pm2": "^2.0.18",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
     "webpack-error-notification": "^0.1.4"
